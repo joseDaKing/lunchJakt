@@ -18,14 +18,14 @@ def scrape_niagara():
     soup = BeautifulSoup(webpage, 'lxml')
     opening_hours = soup.find('div', class_ = 'rn-working-hours').text
     
-    tider = "11-14"
+    print('Scraped niagara')
 
     niagara = read_Content_From_File()
-    niagara[0]['name'] = "MC"
-    niagara[0]['opening_hours'] = "00-24"
-    niagara[0]['helger'] = "00-24"
+    niagara[0]['name'] = "Niagara"
+    niagara[0]['opening_hours'] = opening_hours
+    niagara[0]['helger'] = "Closed"
     
-    my_file = open("content.json", "w")
+    my_file = open("backend/content.json", "w")
     my_file.write(json.dumps(niagara))
     my_file.close
 
@@ -46,7 +46,7 @@ def scrape_woso():
 
     formatedHours = re.findall('[A-Z][^A-Z]*', opening_hours)
     
-    print(formatedHours)
+    print('scraped woso')
 
     woso = read_Content_From_File()
     woso[0]['name'] = "Woso"
@@ -59,7 +59,8 @@ def scrape_woso():
 
 
 def scrape(name):
-    if name == 'niagara':
+    if name == "niagara":
         scrape_niagara()
-    elif name == 'woso':
+        
+    elif name == "woso":
         scrape_woso()    
