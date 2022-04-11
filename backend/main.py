@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 from scraper import *
 
 app = Flask(__name__)
@@ -24,19 +24,15 @@ def user_page():
 def resturant_page(name):
     scrape(name)
     information = read_Content_From_File() 
-    return render_template('resturant.html', content = information)
-
+    return jsonify(information)
+ 
 
 #Förslagssidan, dynamisk - beror på input som gjorts. 
 @app.route("/suggestions/<input>") 
 def suggestion_page(input):
     return render_template('suggestion.html')
   
-     
+
 #Main metod för att starta webbservern.     
 if __name__ == '__main__':
     app.run(debug=True, host = '127.0.0.1', port= 8080)
-
-
-
-

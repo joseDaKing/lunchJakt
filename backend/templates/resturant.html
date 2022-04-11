@@ -13,7 +13,8 @@
 				
 		{% for c in content %}
         	<h4>{{ c.name }}</h4>
-        	<p>Open: {{ c.opening_hours }} Weekends: {{ c.helger }}</p>
+        	<p>{{ c.opening_hours }} </p>
+			<p>{{ c.helger }}</p>
     	{% endfor %}
 
 			<p>{{ content.name }}</p>
