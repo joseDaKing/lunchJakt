@@ -14,8 +14,10 @@
     "@use-gesture/react": "^10.2.11",
     "@vanilla-extract/css": "^1.6.8",
     "@vanilla-extract/webpack-plugin": "^2.1.7",
+    "framer-motion": "^6.2.9",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
