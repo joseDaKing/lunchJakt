@@ -190,22 +190,22 @@ export const borderYWidth = compose(
 );
 
 export const borderTopRightRadius = utility({
-    values: borderWidth,
+    values: themeVars.borderRadius,
     styles: property("borderTopRightRadius")
 });
 
 export const borderBottomRightRadius = utility({
-    values: borderWidth,
+    values: themeVars.borderRadius,
     styles: property("borderBottomRightRadius")
 });
 
 export const borderTopLeftRadius = utility({
-    values: borderWidth,
+    values: themeVars.borderRadius,
     styles: property("borderTopLeftRadius")
 });
 
 export const borderBottomLeftRadius = utility({
-    values: borderWidth,
+    values: themeVars.borderRadius,
     styles: property("borderBottomLeftRadius")
 });
 

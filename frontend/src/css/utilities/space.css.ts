@@ -128,37 +128,37 @@ export const marginY = compose(
 
 export const paddingTop = utility({
     values: themeVars.space,
-    styles: property("marginTop")
+    styles: property("paddingTop")
 });
 
 export const paddingBottom = utility({
     values: themeVars.space,
-    styles: property("marginBottom")
+    styles: property("paddingBottom")
 });
 
 export const paddingLeft = utility({
     values: themeVars.space,
-    styles: property("marginLeft")
+    styles: property("paddingLeft")
 });
 
 export const paddingRight = utility({
     values: themeVars.space,
-    styles: property("marginRight")
+    styles: property("paddingRight")
 });
 
 export const padding = compose(
-    marginTop,
-    marginBottom,
-    marginLeft,
-    marginRight
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight
 );
 
 export const paddingX = compose(
-    marginLeft,
-    marginRight
+    paddingLeft,
+    paddingRight
 );
 
 export const paddingY = compose(
-    marginTop,
-    marginBottom,
+    paddingTop,
+    paddingBottom,
 );
