@@ -102,7 +102,7 @@ const constVariables = {
     }
 }
 
-export const themeVariables = {
+export const themeVars = {
     ...cssVariables,
     ...constVariables
 }
