@@ -8,6 +8,7 @@ import { NotFoundPage, HomePage } from "pages";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import "css/normalize.css";
 
 
 const App: React.FC = () => {
