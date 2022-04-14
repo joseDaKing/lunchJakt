@@ -1,4 +1,12 @@
+/**
+ * Code taken from normalize.css
+ * 
+ * @link https://github.com/necolas/normalize.css/blob/master/normalize.css
+ */
+
 import { globalStyle } from "@vanilla-extract/css";
+
+
 
 globalStyle("html", {
     lineHeight: 1.15,
