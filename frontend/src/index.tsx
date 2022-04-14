@@ -6,7 +6,11 @@ import reportWebVitals from './reportWebVitals';
 
 import { createRoot } from 'react-dom/client';
 
+import { theme } from 'css/theme.css';
 
+
+
+document.body.className = theme;
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
