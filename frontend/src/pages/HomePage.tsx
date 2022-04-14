@@ -2,13 +2,15 @@
  * @author Yousif Abdulkarim
  */
 
+import { AppContainer } from "components/layout";
+
 
 
 export const HomePage: React.FC = () => {
 
     return (
-        <>
-        Home
-        </>
+        <AppContainer>
+            Home
+        </AppContainer>
     );
 }
