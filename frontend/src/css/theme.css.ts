@@ -8,7 +8,7 @@ import { createTheme } from "@vanilla-extract/css";
 
 
 
-export const [ theme, themeVars ] = createTheme({
+export const [ theme, cssVariables ] = createTheme({
     color: {
         primary50: "#f0f9ff",
         primary100: "#e0f2fe",
@@ -49,7 +49,10 @@ export const [ theme, themeVars ] = createTheme({
         lg: "",
         xl: "",
         xxl: "",
-    },
+    }
+});
+
+const constVariables = {
     fluid: {
         "1/5": "20%",
         "1/4": "25%",
@@ -97,6 +100,9 @@ export const [ theme, themeVars ] = createTheme({
         40: "40",
         50: "50",
     }
-});
+}
 
-export type ThemeVars = typeof themeVars;
+export const themeVariables = {
+    ...cssVariables,
+    ...constVariables
+}
