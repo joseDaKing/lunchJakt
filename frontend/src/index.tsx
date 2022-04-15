@@ -1,16 +1,20 @@
-import React from 'react';
+import React from "react";
 
-import App from './App';
+import App from "./App";
 
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 
-import { theme } from 'css/theme.css';
+import { theme } from "styles/theme.css";
+
+import "styles/normalize.css";
+
+import { resetClassName } from "styles/normalize.css";
 
 
 
-document.body.className = theme;
+document.body.className = [ theme, resetClassName ].join(" ");
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 

@@ -8,8 +8,10 @@ import { createTheme } from "@vanilla-extract/css";
 
 
 
-export const [ theme, cssVariables ] = createTheme({
+export const [ theme, dynamicThemeVariables ] = createTheme({
     color: {
+        inverted: "white",
+        
         primary50: "#f0f9ff",
         primary100: "#e0f2fe",
         primary200: "#bae6fd",
@@ -52,7 +54,7 @@ export const [ theme, cssVariables ] = createTheme({
     }
 });
 
-const constVariables = {
+const constantThemeVariables = {
     fluid: {
         "1/5": "20%",
         "1/4": "25%",
@@ -99,10 +101,17 @@ const constVariables = {
         30: "30",
         40: "40",
         50: "50",
+    },
+    media: {
+        sm: "(min-width: 512px)",
+        md: "(min-width: 768px)",
+        lg: "(min-width: 1024px)",
+        xl: "(min-width: 1280px)",
+        xxl: "(min-width: 1536px)"
     }
 }
 
 export const themeVars = {
-    ...cssVariables,
-    ...constVariables
+    ...dynamicThemeVariables,
+    ...constantThemeVariables
 }
