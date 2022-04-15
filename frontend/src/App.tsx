@@ -10,20 +10,31 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "css/normalize.css";
 
+import classNames from "classnames";
+
+import { padding } from "css/utilities";
+
+
 
 const App: React.FC = () => {
+    
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route
-                path="/"
-                element={<HomePage/>}/>
+        <div
+        className={classNames(
+            padding.sm
+        )}>
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                    path="/"
+                    element={<HomePage/>}/>
 
-                <Route
-                path="*"
-                element={<NotFoundPage/>}/>
-            </Routes>
-        </BrowserRouter>
+                    <Route
+                    path="*"
+                    element={<NotFoundPage/>}/>
+                </Routes>
+            </BrowserRouter>
+        </div>
     );
 }
 

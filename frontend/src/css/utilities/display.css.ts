@@ -12,6 +12,7 @@ export const display = utility({
     values: {
         none: "none",
         grid: "grid",
+        flex: "flex",
         block: "block",
         inline: "inline",
         inlineBlock: "inline-block",
