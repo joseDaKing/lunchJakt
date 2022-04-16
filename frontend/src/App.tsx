@@ -4,13 +4,13 @@
 
 
 
+import { animated } from "react-spring";
+
 import { Box } from "components/layout";
 
 import { NotFoundPage, HomePage } from "pages";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { styles } from "styles/index.css";
 
 
 
@@ -24,6 +24,7 @@ const App: React.FC = () => {
         flexDirection="column"
         backgroundColor="neutral300">
             <Box
+            as={animated.div}        
             padding="sm"
             flexGrow="1">
                 <BrowserRouter>
@@ -38,7 +39,6 @@ const App: React.FC = () => {
                     </Routes>
                 </BrowserRouter>
             </Box>
-
             <Box
             padding="sm"
             backgroundColor="inverted"

@@ -51,27 +51,31 @@ const positionValues = {
     ...themeVars.fluid
 }
 
-const properties = defineProperties({
-    conditions: {
-        _: {},
-        ...getMediaConditions(themeVars.media),
-        hover: {
-            selector: "&:hover"
-        },
-        focus: {
-            selector: "&:focus"
-        },
-        focusVisible: {
-            selector: "&:focus-visible"
-        },
-        focusWithin: {
-            selector: "&:focus-within"
-        },
-        active: {
-            selector: "&:active"
-        }
+const conditions = {
+    _: {},
+    ...getMediaConditions(themeVars.media),
+    hover: {
+        selector: "&:hover"
     },
-    defaultCondition: "_",
+    focus: {
+        selector: "&:focus"
+    },
+    focusVisible: {
+        selector: "&:focus-visible"
+    },
+    focusWithin: {
+        selector: "&:focus-within"
+    },
+    active: {
+        selector: "&:active"
+    }
+}
+
+const defaultCondition = "_";
+
+const properties = defineProperties({
+    conditions,
+    defaultCondition,
     properties: {
         marginTop: marginValues,
         marginBottom: marginValues,

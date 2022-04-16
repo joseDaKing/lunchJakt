@@ -1,4 +1,10 @@
-import { createBox } from "@dessert-box/react";
+/**
+ * @author Yousif Abdulkarim
+ */
+
+
+
+import { createBox } from "styles/createBox";
 
 import { styles } from "styles/index.css";
 
@@ -8,5 +14,5 @@ import { resetClassName } from "styles/normalize.css";
 
 export const Box = createBox({
     atoms: styles,
-    defaultClassName: resetClassName
+    resetClassName: resetClassName
 });
