@@ -1,3 +1,7 @@
+'''
+Author: Philip Holmqvist
+'''
+
 from flask import jsonify
 import requests, json
 from urllib.request import Request, urlopen

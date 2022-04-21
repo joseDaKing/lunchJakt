@@ -1,3 +1,8 @@
+'''
+@author Philip Holmqvist
+'''
+
+
 from flask import Flask, jsonify, render_template
 from scraper import *
 import psycopg2
