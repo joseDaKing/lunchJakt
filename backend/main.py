@@ -23,7 +23,7 @@ def home_page():
 #Användar sidan där man kan se profil.
 @app.route("/user/<input>")
 def user_page():
-    return render_template('user.html')
+    return render_template('user.html', json)
 
 
 #Resturangsidorna, dynamiska. <---------------------
@@ -48,8 +48,8 @@ def connect():
         conn = psycopg2.connect(
         host="jdbc:postgresql://pgserver.mau.se",
         database="onlinestore",
-        user="am2364",
-        password="hej1234")
+        user="****",
+        password="****")
         print("Connection Success!")
 
         cur = conn.cursor()
