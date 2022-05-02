@@ -51,10 +51,16 @@ class Restaurant:
 
             location = restaurantData.get("location_string")
 
-            position = Position(
-                restaurantData.get("latitude"),
-                restaurantData.get("longitude")
-            )
+            lat = restaurantData.get("latitude")
+
+            lon = restaurantData.get("longitude")
+
+            if lat != None and lon != None:
+
+                position = Position(
+                    restaurantData.get("latitude"),
+                    restaurantData.get("longitude")
+                )
 
             imageUrl = restaurantData.get("photo", {}).get("images", {}).get("original", {}).get("url") 
             
@@ -86,18 +92,38 @@ class Restaurant:
 
         return self.__name
 
+    def hasName(self):
+        return self.__name != None
+    
+    
+
     @property
     def position(self):
 
         return self.__position
+    
+    def hasPosition(self):
+        return self.__position != None
+
+
 
     @property
     def location(self):
 
         return self.__location
+
+    def hasLocatoin(self):
+
+        return self.__location != None
     
+
+
     @property
     def imageUrl(self):
 
         return self.__imageUrl
+
+    def hasImageUrl(self):
+
+        return self.__imageUrl != None
 
