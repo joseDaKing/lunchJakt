@@ -32,7 +32,7 @@ def is_search_matching(search_text: str | None, fields: list[str | None]) -> boo
 
         has_matched = has_matched or contains(search_text, field)
 
-def find(
+def filter(
     name: str | None = None,
     city: str | None = None,
     country: str | None = None,
@@ -40,6 +40,8 @@ def find(
     search_text: str | None = None,
     user_position: str | None = None,
     max_distance_in_km: str | None = None,
+    size: int | None = None,
+    page: int | None = None
 ) -> Restaurant:
 
     filtered_restaurants = []
@@ -83,3 +85,59 @@ def find(
             filtered_restaurants.append(restaurant)
 
     return filtered_restaurants
+
+def group_array(arr: list, size: int):
+    
+    j = 0
+
+    i = 0
+
+    grouped_list = []
+
+    for item in arr:
+        
+        if grouped_list[i] == None:
+
+            grouped_list[i] = []
+
+        grouped_list[i][j] = item 
+
+        if j == size - 1:
+            
+            i += 1
+
+            j = 0
+
+        j += 1
+
+def find(
+    name: str | None = None,
+    city: str | None = None,
+    country: str | None = None,
+    region: str | None = None,
+    search_text: str | None = None,
+    user_position: str | None = None,
+    max_distance_in_km: str | None = None,
+    size: int | None = None,
+    page: int | None = None
+) -> list[Restaurant]:
+
+    restaurants = filter(
+        name = name,
+        city = city,
+        country = country,
+        region = region,
+        search_text = search_text,
+        user_position = user_position,
+        max_distance_in_km = max_distance_in_km
+    )
+    
+    if page == None:
+
+        page = 1
+
+    if size != None:
+        
+        restaurants = group_array(restaurants, size)[page - 1]
+
+    return restaurants
