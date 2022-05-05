@@ -4,7 +4,6 @@
 
 
 from flask import Flask, jsonify, render_template
-from scraper import *
 import psycopg2
 
 app = Flask(__name__)
@@ -17,6 +16,7 @@ app = Flask(__name__)
 #Startsidan
 @app.route("/")
 def home_page():
+    
     return render_template('index.html')
 
 
@@ -35,6 +35,7 @@ def resturant_page(name):
 #Förslagssidan, dynamisk - beror på input som gjorts. 
 @app.route("/suggestions/<input>") 
 def suggestion_page(input):
+    
     return render_template('suggestion.html')
 
 '''
