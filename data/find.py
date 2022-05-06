@@ -1,8 +1,8 @@
-from get_restaurants import get_restaurants
+from .get_restaurants import get_restaurants
 
-from Restaurant import Restaurant
+from .Restaurant import Restaurant
 
-from Position import Position
+from .Position import Position
 
 
 

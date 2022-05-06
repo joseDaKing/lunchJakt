@@ -1,6 +1,6 @@
-from Location import Location
+from .Location import Location
 
-from Rank import Rank
+from .Rank import Rank
 
 
 class Restaurant:

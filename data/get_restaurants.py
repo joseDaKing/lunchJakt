@@ -1,12 +1,12 @@
-from Rank import Rank
+from .Rank import Rank
 
-from Position import Position
+from .Position import Position
 
-from Location import Location
+from .Location import Location
 
-from Restaurant import Restaurant;
+from .Restaurant import Restaurant;
 
-from get_data_source import get_data_source;
+from .get_data_source import get_data_source;
 
 
 
