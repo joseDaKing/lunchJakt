@@ -118,7 +118,7 @@ def find(
     search_text: str | None = None,
     user_position: str | None = None,
     max_distance_in_km: str | None = None,
-    size: int | None = None,
+    page_size: int | None = None,
     page: int | None = None
 ) -> list[Restaurant]:
 
@@ -136,8 +136,8 @@ def find(
 
         page = 1
 
-    if size != None:
+    if page_size != None:
         
-        restaurants = group_array(restaurants, size)[page - 1]
+        restaurants = group_array(restaurants, page_size)[page - 1]
 
     return restaurants
