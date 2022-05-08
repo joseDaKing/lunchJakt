@@ -101,8 +101,8 @@ body {
 
     <div class="container">
       <h1>Lunchjakt</h1>
-      <form action="{{ url_for('suggestion_page') }}" method="get" class="search-bar">
-        <input type="text" placeholder="sök något" name="q">
+      <form action="{{ url_for('suggestion_page') }}" method="GET" class="search-bar">
+        <input type="text" placeholder="sök något" name="searched">
         <button type="submit"><img src="/static/search_icon.png"> </button>
       </form>
 

@@ -4,10 +4,9 @@
 
 
 import re
-from flask import Flask, jsonify, redirect, render_template, url_for
-from flask import request
+from flask import Flask, jsonify, redirect, render_template, url_for, request
 import psycopg2
-from requests import request # för databas
+
 from data.find import find;
 
 from forms import SearchForm #För sökning
@@ -25,13 +24,13 @@ app = Flask(__name__)
 
 
 #Startsidan
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/", methods=['GET', 'POST'])
 def home_page():
-    form = SearchForm()
-    if request.method == 'POST':
-        return redirect(url_for('suggestions', form)) 
-    else:
-        return render_template('index.html', form = form)
+   # if request.method == "GET":
+    #    return redirect(url_for('suggestion')) 
+   # else:
+
+    return render_template('index.html')
 
 
 #Användar sidan där man kan se profil.
@@ -48,18 +47,10 @@ def resturant_page(name):
  
 
 #Förslagssidan, dynamisk - beror på input som gjorts. 
-@app.route("/suggestions", methods=['GET', 'POST']) 
+@app.route("/suggestions", methods=['GET']) 
 def suggestion_page():
-    searched = request.args.get('searched')
-    
-    result = find(search_text = searched)
-
-    resturants = [
-            {'name': 'Niagara', 'open': 'Öppet', 'cost': '$', 'mecenat': 'yes', 'distance': '50m'},
-            {'name': 'Max', 'open': 'Öppet', 'cost': '$$', 'mecenat': 'yes', 'distance': '86m'},
-            {'name': 'Yoko', 'open': 'Stängt', 'cost': '$$$', 'mecenat': 'no', 'distance': '103m'}
-    ]
-
+    input = request.args.get('searched')  
+    result = find(search_text = input)
     return render_template('suggestion.html', resturants = result)
 
 '''
