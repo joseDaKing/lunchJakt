@@ -20,6 +20,9 @@ app = Flask(__name__)
 # Följ sedan länken som dyker upp i terminalen.
 #pip install flask-wtf
 #pip install wtforms
+#pip install pipreqs
+#pip install gunicorn
+
 
 
 
