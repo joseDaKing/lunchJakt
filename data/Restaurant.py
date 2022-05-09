@@ -1,4 +1,3 @@
-from audioop import add
 from Location import Location
 
 from Rank import Rank
@@ -27,12 +26,15 @@ class Restaurant:
         location: Location | None = None,
     ):
         if name != None and type(name) != str:
+            
             raise Exception("name must be string")
 
         if image_url != None and type(image_url) != str:
+            
             raise Exception("image_url must be string")
 
         if rank != None and type(rank) != Rank:
+            
             raise Exception("rank must be a Rank object")
 
         if location != None and type(location) != Location:
@@ -89,6 +91,40 @@ class Restaurant:
     def has_location(self) -> bool:
 
         return self.__location != None
+
+
+    def __can_compare(self, restaurant) -> bool:
+        
+        return (
+            self.has_rank()
+            and restaurant.has_rank()
+            and self.__rank.has_global_ranking()
+            and restaurant.rank.has_global_ranking()
+        )
+
+    def __eq__(self, restaurant) -> bool:
+        
+        return self.__can_compare(restaurant) and self.rank.global_ranking == restaurant.__rank.global_ranking
+
+    def __gt__(self, restaurant) -> bool:
+        
+        return self.__can_compare(restaurant) and restaurant.__rank.global_ranking < self.__rank.global_ranking
+
+    def __lt__(self, restaurant) -> bool:
+        
+        return self.__can_compare(restaurant) and restaurant.__rank.global_ranking > self.__rank.global_ranking
+
+    def __ne__(self, restaurant) -> bool:
+        
+        return not self.__eq__(restaurant)
+
+    def __ge__(self, restaurant) -> bool:
+        
+        return self.__gt__(restaurant) or self.__eq__(restaurant)
+
+    def __le__(self, restaurant) -> bool:
+
+        return self.__lt__(restaurant) or self.__eq__(restaurant)
 
 
 
