@@ -1,8 +1,8 @@
-from .get_restaurants import get_restaurants
+from get_restaurants import get_restaurants
 
-from .Restaurant import Restaurant
+from Restaurant import Restaurant
 
-from .Position import Position
+from Position import Position
 
 
 
@@ -14,7 +14,7 @@ def contains(a: str | float | int | None, b: str | float | int | None) -> bool:
 
 def is_value_matching(a: str | float | int | None, b: str | float | int | None) -> bool:
 
-    return contains(a, b) and a == b
+    return a != None and b != None and str(a).lower() == str(b).lower()
 
 def is_restaurant_in_range(max_distance: float | None, user_position: Position | None, restaurant_position: Position | None) -> bool:
     
@@ -30,7 +30,9 @@ def is_search_matching(search_text: str | None, fields: list[str | None]) -> boo
 
     for field in fields:
 
-        has_matched = has_matched or contains(search_text, field)
+        has_matched = has_matched or contains(search_text, field) or contains(field, search_text)
+
+    return has_matched
 
 def filter(
     name: str | None = None,
@@ -40,8 +42,6 @@ def filter(
     search_text: str | None = None,
     user_position: str | None = None,
     max_distance_in_km: str | None = None,
-    size: int | None = None,
-    page: int | None = None
 ) -> Restaurant:
 
     filtered_restaurants = []
@@ -141,3 +141,11 @@ def find(
         restaurants = group_array(restaurants, page_size)[page - 1]
 
     return restaurants
+
+
+results = find(
+    search_text = "restaurang"
+)
+
+for r in results:
+    print(r)

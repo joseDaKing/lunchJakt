@@ -1,15 +1,27 @@
-from .Position import Position
+from Position import Position
 
 
 class Location:
 
     def __init__(
-        self: str | None = None,
+        self,
         city: str | None = None,
         region: str | None = None,
         country: str | None = None,
         position: Position | None = None
     ):
+        if city != None and type(city) != str:
+            raise Exception("city must be a string")
+
+        if region != None and type(region) != str:
+            raise Exception("region must be a string")
+
+        if country != None and type(country) != str:
+            raise Exception("country must be a string")
+
+        if position != None and type(position) != Position:
+            raise Exception("position must be a Position object")
+    
         self.__city = city
 
         self.__region = region
@@ -65,22 +77,24 @@ class Location:
     
     def __str__(self) -> str | None:
 
+        text = ""
+
         if self.has_city():
             
-            str = "city: " + self.city + "\n"
+            text += "city: " + self.city + "\n"
 
         
         if self.has_region():
             
-            str = "region: " + self.region + "\n"
+            text += "region: " + self.region + "\n"
 
 
         if self.has_country():
             
-            str = "country: " + self.country + "\n"
+            text += "country: " + self.country + "\n"
 
         if self.has_position():
 
-            str += self.__position
+            text += str(self.__position)
 
-        return str
+        return text
