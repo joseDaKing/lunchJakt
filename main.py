@@ -6,6 +6,7 @@
 import re
 from flask import Flask, jsonify, redirect, render_template, url_for, request
 import psycopg2
+import os
 
 from data.find import find;
 
@@ -93,4 +94,5 @@ def connect():
 
 #Main metod för att starta webbservern.     
 if __name__ == '__main__':
-    app.run(debug=True, host = '127.0.0.1', port= 8080)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host = '0.0.0.0', port=port, debug=True)
