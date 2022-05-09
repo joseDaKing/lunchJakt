@@ -24,11 +24,17 @@ app = Flask(__name__)
 
 
 #Startsidan
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def home_page():
-   # if request.method == "GET":
-    #    return redirect(url_for('suggestion')) 
-   # else:
+    return render_template('index.html')
+
+#Vid inloggning blir man omdirigerad till denna sidan. Värden från inloggning finns i variablerna.
+@app.route("/", methods=['POST'])
+def home_page_login():
+    email = request.form['email']
+    password = request.form=['password']
+    print(email)
+    print(password)
 
     return render_template('index.html')
 
@@ -50,7 +56,8 @@ def resturant_page(name):
 @app.route("/suggestions", methods=['GET']) 
 def suggestion_page():
     input = request.args.get('searched')  
-    result = find(search_text = input)
+    result = find(name = input)
+    print(result)
     return render_template('suggestion.html', resturants = result)
 
 '''
