@@ -55,8 +55,8 @@ def resturant_page(name):
 #Förslagssidan, dynamisk - beror på input som gjorts. 
 @app.route("/suggestions", methods=['GET']) 
 def suggestion_page():
-    input = request.args.get('searched')  
-    result = find(name = input)
+    input = request.args.get('searched')
+    result = find(search_text = input)
     print(result)
     return render_template('suggestion.html', resturants = result)
 
