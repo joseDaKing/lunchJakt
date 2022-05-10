@@ -64,24 +64,30 @@ def suggestion_page():
     print(result)
     return render_template('suggestion.html', resturants = result)
 
-'''
 
 
-def connect():
+
+def connect(resturant_id, rating):
     conn = None
     try:
 
         print("Connecting to database...")
         conn = psycopg2.connect(
-        host="jdbc:postgresql://pgserver.mau.se",
-        database="onlinestore",
-        user="****",
-        password="****")
+        host="pgserver.mau.se",
+        database="lunchjakt",
+        user="am1549",
+        password="xibh1ocz")
         print("Connection Success!")
 
-        cur = conn.cursor()
-        cur.execute('INSERT INTO suppliers (namn, phonenumber, adress) VALUES ('"Philip"', '"0706170099"', '"Tyringegatan 3"')')
-        cur.close()
+        cursor = conn.cursor()
+    
+
+        PostgreSQL_insert = "INSERT INTO ratings (restaurant_id, rating) VALUES (%s, %s)"
+        insert_to = (resturant_id, rating)
+        cursor.execute(PostgreSQL_insert, insert_to)
+        conn.commit()
+
+        
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -90,9 +96,10 @@ def connect():
             conn.close()
             print('Database connection closed.')
 
-'''
+
 
 #Main metod för att starta webbservern.     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
+    connect(1232122, 5)
     app.run(host = '0.0.0.0', port=port, debug=True)
