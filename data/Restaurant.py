@@ -2,17 +2,7 @@ from Location import Location
 
 from Rank import Rank
 
-
-
-def addTabs(text: str) -> str:
-    
-    newText = ""
-
-    for row in text.split("\n"):
-        
-        newText += "\t" + row + "\n"
-
-    return newText
+from add_tabs import add_tabs
 
 
 
@@ -134,20 +124,20 @@ class Restaurant:
 
         if self.has_name():
 
-            text += addTabs("name: " + self.__name + "\n")
+            text += add_tabs("name: " + self.__name + "\n")
 
         if self.has_image_url():
             
-            text += addTabs("image_url: " + self.__image_url + "\n")
+            text += add_tabs("image_url: " + self.__image_url + "\n")
             
         
         if self.has_rank():
 
-            text += addTabs("rank:\n" + addTabs(str(self.__rank)))
+            text += add_tabs("rank:\n" + add_tabs(str(self.__rank)))
             
         
         if self.has_location():
 
-            text += addTabs("location:\n" + addTabs(str(self.__location)))
+            text += add_tabs("location:\n" + add_tabs(str(self.__location)))
 
         return text

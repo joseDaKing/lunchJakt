@@ -1,5 +1,8 @@
 from Position import Position
 
+from add_tabs import add_tabs
+
+
 
 class Location:
 
@@ -95,6 +98,6 @@ class Location:
 
         if self.has_position():
 
-            text += str(self.__position)
+            text += "position:\n" + add_tabs(str(self.__position))
 
         return text

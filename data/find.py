@@ -1,4 +1,3 @@
-from array import array
 from get_restaurants import get_restaurants
 
 from Restaurant import Restaurant
@@ -179,10 +178,3 @@ def find(
         restaurants = group_array(restaurants, page_size)[page - 1]
 
     return restaurants
-
-results = find(
-    search_text = "restaurang"
-)
-
-for r in results:
-    print(r.name, ": ", r.rank.global_ranking)
