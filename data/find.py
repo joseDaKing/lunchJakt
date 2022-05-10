@@ -1,9 +1,10 @@
 from array import array
-from get_restaurants import get_restaurants
 
-from Restaurant import Restaurant
+from .get_restaurants import get_restaurants
 
-from Position import Position
+from .Restaurant import Restaurant
+
+from .Position import Position
 
 
 
@@ -180,9 +181,6 @@ def find(
 
     return restaurants
 
-results = find(
-    search_text = "restaurang"
-)
 
-for r in results:
-    print(r.name, ": ", r.rank.global_ranking)
+
+

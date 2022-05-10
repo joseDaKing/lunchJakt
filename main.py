@@ -6,9 +6,11 @@
 import re
 from flask import Flask, jsonify, redirect, render_template, url_for, request
 import psycopg2
-import os
+import os, sys
 
-from data.find import find;
+from data.find import find
+
+
 
 from forms import SearchForm #För sökning
 
@@ -61,7 +63,6 @@ def resturant_page(name):
 def suggestion_page():
     input = request.args.get('searched')
     result = find(search_text = input)
-    print(result)
     return render_template('suggestion.html', resturants = result)
 
 
@@ -101,5 +102,4 @@ def connect(resturant_id, rating):
 #Main metod för att starta webbservern.     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    connect(1232122, 5)
     app.run(host = '0.0.0.0', port=port, debug=True)
