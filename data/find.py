@@ -1,8 +1,9 @@
-from get_restaurants import get_restaurants
+from functools import cmp_to_key
+from .get_restaurants import get_restaurants
 
-from Restaurant import Restaurant
+from .Restaurant import Restaurant
 
-from Position import Position
+from .Position import Position
 
 
 
@@ -110,39 +111,77 @@ def group_array(arr: list, size: int):
 
         j += 1
 
-def sort_restaurants(restaurants: list[Restaurant], ascending = True) -> list[Restaurant]:
+def compare_by_price(a: Restaurant, b: Restaurant) -> int:
     
-    restaurants_with_no_rakning = []
+    if not a.has_price() and not b.has_price():
+    
+        return -1
+    
+    elif not a.has_price() and b.has_price():
 
-    restaurants_with_rakning = []
+        return -1
 
-    for restaurant in restaurants:
+    elif a.has_price() and not b.has_price():
 
-        if restaurant.has_rank() and restaurant.rank.has_global_ranking():
-            
-            restaurants_with_rakning.append(restaurant)
+        return 1
+
+    elif a.has_price() and b.has_price():
         
+        if a.price == b.price:
+        
+            return 0
+        
+        elif a.price > b.price:
+
+            return 1
+
+        elif a.price < b.price:
+
+            return -1
+
         else:
 
-            restaurants_with_no_rakning.append(restaurant)
+            return -1
+
+    return -1
+
+def compare_by_rank(a: Restaurant, b: Restaurant) -> int:
     
-    restaurants_with_rakning = sorted(restaurants_with_rakning)
+    a_has_rank = a.has_rank() and a.rank.has_global_ranking()
 
-    if ascending:
+    b_has_rank = b.has_rank() and b.rank.has_global_ranking()
+
+    if not a_has_rank and not b_has_rank:
+    
+        return -1
+    
+    elif not a_has_rank and b_has_rank:
+
+        return -1
+
+    elif a_has_rank and not b_has_rank:
+
+        return 1
+
+    elif a_has_rank and b_has_rank:
         
-        restaurants_with_rakning = reversed(restaurants_with_rakning)
+        if a.rank.global_ranking == b.rank.global_ranking:
+        
+            return 0
+        
+        elif a.rank.global_ranking > b.rank.global_ranking:
 
-    sorted_restaurants = []
+            return 1
 
-    for restaurant in restaurants_with_rakning:
+        elif a.rank.global_ranking < b.rank.global_ranking:
 
-        sorted_restaurants.append(restaurant)
+            return -1
 
-    for restaurant in restaurants_with_no_rakning:
+        else:
 
-        sorted_restaurants.append(restaurant)
+            return -1
 
-    return sorted_restaurants
+    return -1
 
 def find(
     name: str | None = None,
@@ -150,12 +189,49 @@ def find(
     country: str | None = None,
     region: str | None = None,
     search_text: str | None = None,
-    user_position: str | None = None,
+    user_position: Position | None = None,
     max_distance_in_km: str | None = None,
     page_size: int | None = None,
     page: int | None = None,
-    sort_rank_ascending: bool = True
+    sort_type: str | None = None,
+    sort_direction: str | None = None
 ) -> list[Restaurant]:
+
+    if name != None and type(name) != str:
+        
+        raise Exception("name must be a string")
+
+    if city != None and type(city) != str:
+        
+        raise Exception("city must be a string")
+
+    if country != None and type(country) != str:
+        
+        raise Exception("country must be a string")
+
+    if region != None and type(region) != str:
+        
+        raise Exception("region must be a string")
+
+    if search_text != None and type(search_text) != str:
+        
+        raise Exception("search_text must be a string")
+
+    if name != None and type(name) != str:
+        
+        raise Exception("name must be a string")
+
+    if sort_type != None and not (type(sort_type) == str and (sort_type == "rank" or sort_type == "price")):
+
+        raise Exception("sort_type must be a 'rank' or 'price'")
+
+    if sort_direction == None:
+        
+        sort_direction = "ascending"
+
+    if sort_direction != None and not (type(sort_direction) == str and (sort_direction == "ascending" or sort_direction == "descending")):
+        
+        raise Exception("sort_direction must be a 'ascending' or 'descending'")
 
     restaurants = filter(
         name = name,
@@ -167,7 +243,21 @@ def find(
         max_distance_in_km = max_distance_in_km
     )
 
-    restaurants = sort_restaurants(restaurants, sort_rank_ascending)
+    if sort_type == "rank":
+        
+        restaurants = sorted(
+            restaurants,
+            key = cmp_to_key(compare_by_rank),
+            reverse = sort_direction == "ascending"
+        )
+
+    if sort_type == "price":
+        
+        restaurants = sorted(
+            restaurants,
+            key = cmp_to_key(compare_by_price),
+            reverse = sort_direction == "ascending"
+        )
 
     if page == None:
 

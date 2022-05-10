@@ -9,15 +9,19 @@ class Rank:
     ):
 
         if rating != None and type(rating) != str:
+            
             raise Exception("rating must be a string")
         
         if num_reviews != None and type(num_reviews) != str:
+            
             raise Exception("num_reviews must be a string")
         
         if local_ranking != None and type(local_ranking) != str:
+            
             raise Exception("local_ranking must be a string")
         
         if global_ranking != None and type(global_ranking) != str:
+            
             raise Exception("global_ranking must be a string")
 
         self.__rating = rating
@@ -27,8 +31,8 @@ class Rank:
         self.__global_ranking = global_ranking
 
         self.__local_ranking = local_ranking
-
-
+    
+    
 
     @property
     def rating(self) -> str | None:

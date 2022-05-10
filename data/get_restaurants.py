@@ -1,12 +1,12 @@
-from Rank import Rank
+from .Rank import Rank
 
-from Position import Position
+from .Position import Position
 
-from Location import Location
+from .Location import Location
 
-from Restaurant import Restaurant;
+from .Restaurant import Restaurant;
 
-from get_data_source import get_data_source;
+from .get_data_source import get_data_source;
 
 
 
@@ -85,11 +85,23 @@ def get_restaurants() -> list[Restaurant]:
 
         image_url = restaurantData.get("photo", {}).get("images", {}).get("original", {}).get("url")
         
+        id = restaurantData.get("location_id")
+
+        price = restaurantData.get("price")
+
+        if price != None:
+            
+            price = price.split("-")[0]
+
+            price = price[: len(price) - 3]
+
         restaurant = Restaurant(
+            id = id,
+            price = price,
             name = name,
             rank = rank,
             location = location,
-            image_url = image_url
+            image_url = image_url,
         )
 
         restaurants.append(restaurant)

@@ -1,8 +1,9 @@
-from Location import Location
+from inspect import _void
+from .Location import Location
 
-from Rank import Rank
+from .Rank import Rank
 
-from add_tabs import add_tabs
+from .add_tabs import add_tabs
 
 
 
@@ -10,11 +11,21 @@ class Restaurant:
     
     def __init__(
         self,
+        id: str,
+        price: str | None = None,
         name: str | None = None,
         image_url: str | None = None,
         rank: Rank | None = None,
         location: Location | None = None,
     ):
+        if id != None and type(id) != str:
+                
+            raise Exception("id must be a string")
+
+        if price != None and type(price) != str:
+
+            raise Exception("price must be a string")
+
         if name != None and type(name) != str:
             
             raise Exception("name must be string")
@@ -28,7 +39,12 @@ class Restaurant:
             raise Exception("rank must be a Rank object")
 
         if location != None and type(location) != Location:
+
             raise Exception("location must be a Location Object")
+
+        self.__id = id
+        
+        self.__price = price
 
         self.__name = name
 
@@ -38,7 +54,30 @@ class Restaurant:
 
         self.__location = location
 
+        self.__comparator_property = "rank"
 
+
+
+    @property
+    def id(self) -> str:
+
+        return self.__id
+
+
+    @property
+    def price(self) -> int | None:
+
+        if (self.__price == None):
+            
+            return None
+
+        return int(self.__price)
+
+    def has_price(self) -> bool:
+
+        return self.__price != None
+
+    
 
     @property
     def name(self) -> str | None:
@@ -71,8 +110,6 @@ class Restaurant:
 
         return self.__rank != None
 
-
-
     @property
     def location(self) -> Location | None:
         
@@ -82,45 +119,17 @@ class Restaurant:
 
         return self.__location != None
 
-
-    def __can_compare(self, restaurant) -> bool:
-        
-        return (
-            self.has_rank()
-            and restaurant.has_rank()
-            and self.__rank.has_global_ranking()
-            and restaurant.rank.has_global_ranking()
-        )
-
-    def __eq__(self, restaurant) -> bool:
-        
-        return self.__can_compare(restaurant) and self.rank.global_ranking == restaurant.__rank.global_ranking
-
-    def __gt__(self, restaurant) -> bool:
-        
-        return self.__can_compare(restaurant) and restaurant.__rank.global_ranking < self.__rank.global_ranking
-
-    def __lt__(self, restaurant) -> bool:
-        
-        return self.__can_compare(restaurant) and restaurant.__rank.global_ranking > self.__rank.global_ranking
-
-    def __ne__(self, restaurant) -> bool:
-        
-        return not self.__eq__(restaurant)
-
-    def __ge__(self, restaurant) -> bool:
-        
-        return self.__gt__(restaurant) or self.__eq__(restaurant)
-
-    def __le__(self, restaurant) -> bool:
-
-        return self.__lt__(restaurant) or self.__eq__(restaurant)
-
-
+    
 
     def __str__(self) -> str:
 
         text = "Restaurant\n"
+
+        text += add_tabs("id: " + self.__id)
+
+        if self.has_price():
+
+            text += add_tabs("price: " + self.__price)
 
         if self.has_name():
 

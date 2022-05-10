@@ -1,6 +1,6 @@
-from Position import Position
+from .Position import Position
 
-from add_tabs import add_tabs
+from .add_tabs import add_tabs
 
 
 
