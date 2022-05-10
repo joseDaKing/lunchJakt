@@ -1,0 +1,79 @@
+{% extends "base.html"  %}
+
+
+{% block content %}
+<style>
+
+h1 {text-align: center;}
+
+.container{
+  margin-left: 1%;
+	margin-top: 30%;
+	width: 99%;
+	height: 1000px;
+  align-items: center;
+}
+
+.search-bar{
+  width: 90%;
+  height: 5%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 3%;
+  display: flex;
+  align-items: center;
+  
+}
+
+.search-bar input{
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  font-size: 20px;
+  color: white
+}
+
+::placeholder{
+  color: white;
+}
+
+.search-bar button img{
+  width: 25px;
+}
+
+.search-bar button{
+  border: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+  cursor: pointer;
+}
+
+body {
+	background-image: url('/static/background.jpg');
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+}
+
+
+  </style>
+  <body>
+
+    <div class="container">
+      <h1>Lunchjakt</h1>
+      <form action="{{ url_for('suggestion_page') }}" method="GET" class="search-bar">
+        <input type="text" placeholder="sök något" name="searched">
+        <button type="submit"><img src="/static/search_icon.png"> </button>
+      </form>
+
+    </div>
+    
+
+{% endblock %}
+
+
+

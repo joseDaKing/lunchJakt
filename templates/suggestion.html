@@ -1,0 +1,125 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+<style>
+
+h1 {text-align: center;}
+
+h3 {
+	color: black;
+	opacity: 1.0;
+}
+
+h5{
+	color: black;
+}
+
+p{
+	color: black;
+}
+
+.resturant {
+ 
+  border-radius: 13px;
+  border: 2px solid lightblue;
+  background-color: lightblue; 
+  opacity: 0.85;    
+  margin-top: 2%;
+  margin: auto;
+  
+}
+
+.container{
+	margin-left: 1%;
+	margin-top: 5%;
+	margin-right: 1%;
+	height: 1000px;
+}
+
+.resturant-header h3{
+	display: inline;
+}
+
+.resturant-header h5{
+	float: right;
+}
+
+.label {
+  color:blue;
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+#expend {
+  display:none;  
+}
+
+#expend + .smalldesc {
+  max-height:0px;
+  overflow:hidden;
+  transition:all .3s ease;
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+#expend:checked + .smalldesc {
+  max-height:350px;  
+}
+
+.row label{
+	padding-left: 4%;
+}
+
+body {
+	background-image: url('/static/background.jpg');
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+}
+
+  </style>
+  <body>
+
+
+  <div class="container"> 
+
+	<h1>Lunchjakt</h1>
+
+	{% for resturant in resturants %}
+	<div class="resturant">
+		<div class="resturant-header">
+			<h3>{{ resturant.name }}</h3>
+			<h5>{{ resturant.price_level }} &nbsp; &nbsp; {{ resturant.distance }}</h5>
+		</div>
+	
+        <p>{{ resturant.open }} </p>
+		
+		<p>{{ resturant.mecenat }}</p>
+
+		<div class="service-1 click1">
+			<div class="row">
+			  <input type="checkbox" id="expend" />
+			  <div class="medium-12 small-12 columns smalldesc">
+			  <p>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2253.6145170421823!2d12.991951115130238!3d55.60872228051506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4653a3ff34b4411d%3A0x6eccda1f7a0e91f2!2sNiagara!5e0!3m2!1ssv!2sse!4v1652084170448!5m2!1ssv!2sse" width="350" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			  </p>
+			  </div>
+			  <label for="expend">Karta</label>
+			</div>
+		</div>
+	</div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+
+
+    
+    
+
+    
+
+
+
