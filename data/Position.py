@@ -6,7 +6,7 @@ class Position:
 
     __ONE_DEGREE_LAT_IN_KM: float = 111
 
-    __ONE_DEGREE_LOT_IN_KM: float = 111.321
+    __ONE_DEGREE_LON_IN_KM: float = 111.321
 
 
 
@@ -15,6 +15,11 @@ class Position:
         lat: str | None = None,
         lon: str | None = None,
     ):
+        if lat != None and type(lat) != str:
+            raise Exception("lat must be a string")
+
+        if lon != None and type(lon) != str:
+            raise Exception("lon must be a string")
         
         self.__lat = lat
         
@@ -44,17 +49,17 @@ class Position:
 
     def distance(self, position) -> float | None:
 
-        if self.lot == None or self.lat == None:
+        if self.lon == None or self.lat == None:
 
             return None
 
-        x1 = self.lot * Position.__ONE_DEGREE_LOT_IN_KM
+        x1 = float(self.__lon) * Position.__ONE_DEGREE_LON_IN_KM
         
-        y1 = self.lat * Position.__ONE_DEGREE_LAT_IN_KM
+        y1 = float(self.__lat) * Position.__ONE_DEGREE_LAT_IN_KM
 
-        x2 = position.lot * Position.__ONE_DEGREE_LOT_IN_KM
+        x2 = float(position.lon) * Position.__ONE_DEGREE_LON_IN_KM
         
-        y2 = position.lat * Position.__ONE_DEGREE_LAT_IN_KM
+        y2 = float(position.lat) * Position.__ONE_DEGREE_LAT_IN_KM
 
         distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))
 
@@ -64,15 +69,15 @@ class Position:
 
     def __str__(self) -> str:
 
-        str = "";
+        text = "";
 
-        if self.__lot:
+        if self.__lon != None:
 
-            str += "lot: " + self.__lot + "\n"
+            text += "lon: " + self.__lon + "\n"
 
 
-        if self.__lat:
+        if self.__lat != None:
 
-            str += "lat: " + self.__lat + "\n"
+            text += "lat: " + self.__lat + "\n"
 
-        return str
+        return text
