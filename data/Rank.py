@@ -7,6 +7,19 @@ class Rank:
         local_ranking: str | None = None,
         global_ranking: str | None = None,
     ):
+
+        if rating != None and type(rating) != str:
+            raise Exception("rating must be a string")
+        
+        if num_reviews != None and type(num_reviews) != str:
+            raise Exception("num_reviews must be a string")
+        
+        if local_ranking != None and type(local_ranking) != str:
+            raise Exception("local_ranking must be a string")
+        
+        if global_ranking != None and type(global_ranking) != str:
+            raise Exception("global_ranking must be a string")
+
         self.__rating = rating
 
         self.__num_reviews = num_reviews
@@ -75,26 +88,26 @@ class Rank:
     
     def __str__(self) -> str:
 
-        str = ""
+        text = ""
 
         if (self.has_rating()):
 
-            str += self.__rating + "\n"
+            text += "rating: " + self.__rating + "\n"
 
 
         if (self.has_num_reviews()):
 
-            str += self.__num_reviews + "\n"
+            text += "num_review: " + self.__num_reviews + "\n"
 
 
         if (self.has_local_ranking()):
 
-            str += self.__local_ranking + "\n"
+            text += "local_ranking: " + self.__local_ranking + "\n"
 
 
         if (self.has_global_ranking()):
 
-            str += self.__global_ranking + "\n"
+            text += "global_ranking: " + self.__global_ranking + "\n"
             
 
-        return str
+        return text
