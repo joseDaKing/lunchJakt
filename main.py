@@ -64,7 +64,10 @@ def suggestion_page():
     print(result)
     return render_template('suggestion.html', resturants = result)
 
-
+#author Philip Aronsson
+@app.route("/register")
+def register_page():
+    return render_template('register.html')
 
 
 def connect(resturant_id, rating):

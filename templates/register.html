@@ -1,0 +1,38 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+<style>
+    body {
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Registrera dig</h1>
+        <form method="POST">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Skriv din mejl här">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Lösenord</label>
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Skriv in ditt lösenord">
+            </div>
+            <div class="form-group">
+                <label for="firstname">Förnamn</label>
+                <input type="text" name="fname" class="form-control" id="firstname" placeholder="Skriv in ditt förnamn"> 
+            </div>
+            <div class="form-group">
+                <label for="lastname">Efternamn</label>
+                <input type="text" name="lname" class="form-control" id="lastname" placeholder="Skriv in ditt efternamn"> 
+            </div>
+            <a href="register.html" class="btn btn-primary" role="button" data-bs-toggle="button">Registrera dig</a>
+          </form>
+
+    </div>
+
+</body>
+
+{% endblock %}
