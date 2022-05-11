@@ -268,12 +268,4 @@ def find(
         
         restaurants = group_array(restaurants, page_size)[page - 1]
 
-<<<<<<< HEAD
     return restaurants
-
-
-
-
-=======
-    return restaurants
->>>>>>> yousef
