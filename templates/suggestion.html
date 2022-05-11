@@ -32,9 +32,11 @@ ul.nav.nav-tabs > li a.active{
 .card-header {
     background-color: rgb(245,245,245,0.3)!important;
 	border-radius:0!important;
+	height: 100px;
 }
 .card{
-border-radius:0!important;
+border-radius:15px;
+margin-top: 5%;
 }
 
 .card > .card-header a::before {
@@ -48,12 +50,27 @@ border-radius:0!important;
     right: 0;
 }
 
+.container {
+	width: 95% !important;
+	margin: auto;
+	margin-top: 5%;
+	display: block;	
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+  	justify-content: center;	
+}
+
   </style>
   <body>
 
-	<h1>Lunchjakt</h1>
+	
 
-	<div class="container"></div>
+	<div class="container">
+		<h1>Lunchjakt</h1>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="tab-content">
@@ -61,19 +78,19 @@ border-radius:0!important;
 						{% for resturant in resturants %}
 							<div class="card">
 								<div class="card-header" id="infraOne">
-									<a href="#collapseOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+									<a href="#{{ resturant.id }}" data-toggle="collapse" data-target="#{{ resturant.id }}" aria-expanded="false" aria-controls="{{ resturant.id }}">
 										<p class="mb-0">
 								  		{{ resturant.name }}
 									</p>
 								</a>
 								</div>
-									<div id="collapseOne" class="collapse" aria-labelledby="infraOne">
+									<div id="{{ resturant.id }}" class="collapse" aria-labelledby="infraOne">
 										<div class="card-body">
 											<p>Cool sida</p>
 										</div>
 									</div>
 							</div><!-- close card-->
-						{% end for %}
+						{% endfor %}
 					</div>
 				</div>
 			</div>
