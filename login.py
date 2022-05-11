@@ -7,8 +7,28 @@
 
 import psycopg2
 from psycopg2 import Error
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin
+from datetime import datetime
+
+import os
 
 
+app = Flask(__name__)
+
+SECRET_KEY = os.urandom(32)
+
+app.config['SECRET_KEY'] = SECRET_KEY
+
+login_manager = LoginManager()
+
+login_manager.init_app(app)
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'pgserver.mau.se'
+
+db = SQLAlchemy(app)
 
 def register():
 

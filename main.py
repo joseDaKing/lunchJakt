@@ -26,7 +26,11 @@ app = Flask(__name__)
 #pip install pipreqs
 #pip install gunicorn
 
+"""
+SECRET_KEY = os.urandom(32)
 
+app.config['SECRET_KEY'] = SECRET_KEY
+"""
 
 
 #Startsidan
