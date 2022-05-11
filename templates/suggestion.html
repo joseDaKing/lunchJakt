@@ -4,113 +4,82 @@
 
 <style>
 
-h1 {text-align: center;}
-
-h3 {
-	color: black;
-	opacity: 1.0;
+a{
+color: #282425!important;	
+}
+ul.nav.nav-tabs > li{
+	display: inline-block;
+	line-height: 50px;
+	height: 100%;
+	text-transform:uppercase;
+}
+ul.nav.nav-tabs > li a{
+	display:block;
+	padding:15px;
+	color: #282425!important;
+	
+}
+ul.nav.nav-tabs > li a:hover, ul.nav.nav-tabs > li:hover{
+	background:	#FB282F;
+	color:#fff!important;
+	text-decoration: none!important;
+}
+ul.nav.nav-tabs > li a.active{
+	background:	#282425;
+	color:#fff!important;
+	text-decoration: none!important;
+}
+.card-header {
+    background-color: rgb(245,245,245,0.3)!important;
+	border-radius:0!important;
+}
+.card{
+border-radius:0!important;
 }
 
-h5{
-	color: black;
-}
-
-p{
-	color: black;
-}
-
-.resturant {
- 
-  border-radius: 13px;
-  border: 2px solid lightblue;
-  background-color: lightblue; 
-  opacity: 0.85;    
-  margin-top: 2%;
-  margin: auto;
-  
-}
-
-.container{
-	margin-left: 1%;
-	margin-top: 5%;
-	margin-right: 1%;
-	height: 1000px;
-}
-
-.resturant-header h3{
-	display: inline;
-}
-
-.resturant-header h5{
-	float: right;
-}
-
-.label {
-  color:blue;
-  text-decoration:underline;
-  cursor:pointer;
-}
-
-#expend {
-  display:none;  
-}
-
-#expend + .smalldesc {
-  max-height:0px;
-  overflow:hidden;
-  transition:all .3s ease;
-  padding-left: 4%;
-  padding-right: 4%;
-}
-
-#expend:checked + .smalldesc {
-  max-height:350px;  
-}
-
-.row label{
-	padding-left: 4%;
-}
-
-body {
-	background-image: url('/static/background.jpg');
-	background-repeat: no-repeat;
-  	background-attachment: fixed;
-  	background-size: cover;
+.card > .card-header a::before {
+    font-family: fontawesome;
+    content: "\f067 ";
+    color: #282425;
+    float: right;
+    margin-right: 15px;
+    font-weight: 400;
+    position: absolute;
+    right: 0;
 }
 
   </style>
   <body>
 
-
-  <div class="container"> 
-
 	<h1>Lunchjakt</h1>
 
-	{% for resturant in resturants %}
-	<div class="resturant">
-		<div class="resturant-header">
-			<h3>{{ resturant.name }}</h3>
-			<h5>{{ resturant.price_level }} &nbsp; &nbsp; {{ resturant.distance }}</h5>
-		</div>
-	
-        <p>{{ resturant.open }} </p>
-		
-		<p>{{ resturant.mecenat }}</p>
-
-		<div class="service-1 click1">
-			<div class="row">
-			  <input type="checkbox" id="expend" />
-			  <div class="medium-12 small-12 columns smalldesc">
-			  <p>
-				<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB_C-qHhB3SCtVZuGrInbF9CpiQYk9DVEc&q=Malmö Universitet" width="350" height="350" loading="lazy"></iframe>
-			  </p>
-			  </div>
-			  <label for="expend">Karta</label>
+	<div class="container"></div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="tab-content">
+					<div id="tab1" class="tab-pane fade show active">
+						{% for resturant in resturants %}
+							<div class="card">
+								<div class="card-header" id="infraOne">
+									<a href="#collapseOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										<p class="mb-0">
+								  		{{ resturant.name }}
+									</p>
+								</a>
+								</div>
+									<div id="collapseOne" class="collapse" aria-labelledby="infraOne">
+										<div class="card-body">
+											<p>Cool sida</p>
+										</div>
+									</div>
+							</div><!-- close card-->
+						{% end for %}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-    {% endfor %}
-</div>
+
 
 
 {% endblock %}

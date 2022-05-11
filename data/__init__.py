@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-from .find import find
-=======
 from .find import find
 
 from .add_tabs import add_tabs
@@ -16,4 +13,3 @@ from .Position import Position
 from .Rank import Rank
 
 from .Restaurant import Restaurant
->>>>>>> yousef
