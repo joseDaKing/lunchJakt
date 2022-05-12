@@ -4,6 +4,8 @@
 
 <style>
 
+
+
 a{
 color: #282425!important;	
 }
@@ -66,13 +68,65 @@ body {
   	background-size: cover;
 }
 
+.ratings-container{
+	width: 100px;
+	height: 20px;
+	position: relative;
+	
+}
+
+.ratings{
+	background-color: #fbc634 !important;
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	height: 20px;
+	z-index: 100;
+}
+
+.ratings img{
+	position: absolute !important;	
+    top: 0;
+	left: 0;
+	max-height: 20px !important;
+	max-width: 100px !important;
+	z-index: 110;
+    
+}
+
+.rating-color{
+	
+}
+
+
+.fa-star-half-full{
+	
+}
+
+.fa-star-o{
+	
+}
+
+.review-count{
+    font-weight:400;
+    margin-bottom:2px;
+    font-size:15px !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
   </style>
+
+
   <body>
 
-	
-
 	<div class="container">
-		<h1>Lunchjakt</h1>
+		
+		
+		<h5> Resturanger - {{ resturants[0].location.city }}</h5>
+		<h6>{{ resturants|length }} resultat matchar din sökning</h6>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="tab-content">
@@ -82,13 +136,25 @@ body {
 								<div class="card-header" id="infraOne">
 									<a href="#{{ resturant.id }}" data-toggle="collapse" data-target="#{{ resturant.id }}" aria-expanded="false" aria-controls="{{ resturant.id }}">
 										<p class="mb-0">
-								  		{{ resturant.name }}
+										<!-- Info innan utdraget-->
+								  		<h5>{{ resturant.name }}</h5>  
+										
+											<div class="ratings-container">
+													<div class="ratings" style="width: calc(19.5% * {{ resturant.rank.rating }})">
+														<img src="/static/stars.png" alt="{{ resturant.rank.rating }}" title=" {{ resturant.rank.rating }} ">
+													</div>
+													
+											</div>
+										<h6 class="review-count">{{ resturant.rank.num_reviews }} Omdömen</h6>
 									</p>
 								</a>
 								</div>
 									<div id="{{ resturant.id }}" class="collapse" aria-labelledby="infraOne">
 										<div class="card-body">
+											<!-- Info med utdraget-->
 											<p>Cool sida</p>
+											<img src="{{ resturant.image_url }}" width="300" height="300"  loading="lazy" alt="no image" title="image">
+											
 										</div>
 									</div>
 							</div><!-- close card-->
