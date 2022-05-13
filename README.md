@@ -1,5 +1,9 @@
-För att köra JavaScript koden behöver man:
+För att köra koden:
+1. Clona ner projektet 
+2. Kör main filen och följ länken som dyker upp i terminalen.
 
-1. Ladda ner koden från https://github.com/joseDaKing/outstanding-resume
+Alternativt besök:
+http://lunchjaktv2.herokuapp.com/ 
+för att se den senaste stabila versionen.
 
-2. 
+OBS. Hemsidan är primärt designad för smartphones och kan därför se lite konstig ut på desktop.
