@@ -10,14 +10,13 @@ import os, sys
 
 from data.find import find
 
-
-
 from forms import SearchForm #För sökning
 
 
 #from data.Restaurant import Restaurant
 
 app = Flask(__name__)
+
 
 # För att köra programmet tryck på run knappen.
 # Följ sedan länken som dyker upp i terminalen.
@@ -45,6 +44,7 @@ def home_page_login():
     password = request.form=['password']
     print(email)
     print(password)
+    loginUser(email=email, password=password)
 
     return render_template('index.html')
 
@@ -69,10 +69,79 @@ def suggestion_page():
     result = find(search_text = input)
     return render_template('suggestion.html', resturants = result)
 
-#author Philip Aronsson
-@app.route("/register")
+#author Philip Aronsson & Philip
+@app.route("/register", methods=['GET','POST'])
 def register_page():
-    return render_template('register.html')
+    if request.method == 'POST':
+        print('post')
+        email = request.form['email']
+        password = request.form['password']
+        fname = request.form['fname']
+        lname = request.form['lname']
+        registerNewUserToDatabase(email, password, fname, lname)
+
+        return render_template('register.html')
+    else:
+        print('no post')
+        return render_template('register.html')
+    
+
+
+def registerNewUserToDatabase(email, password, fname, lname):
+    conn = None
+    try:
+
+        print("Connecting to database...")
+        conn = psycopg2.connect(
+        host="pgserver.mau.se",
+        database="lunchjakt",
+        user="am1549",
+        password="xibh1ocz")
+        print("Connection Success!")
+
+        cursor = conn.cursor()
+    
+
+        PostgreSQL_insert = "INSERT INTO users (email, password, fname, lname) VALUES (%s, %s, %s, %s)"
+        insert_to = (email, password, fname, lname)
+        cursor.execute(PostgreSQL_insert, insert_to)
+        conn.commit()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
+
+def loginUser(email, password):
+    conn = None
+    try:
+
+        print("Connecting to database...")
+        conn = psycopg2.connect(
+        host="pgserver.mau.se",
+        database="lunchjakt",
+        user="am1549",
+        password="xibh1ocz")
+        print("Connection Success!")
+
+        cursor = conn.cursor()
+    
+
+        PostgreSQL_select_Query = "SELECT EXISTS (SELECT email FROM user WHERE password = %s AND email = %s)"
+        cursor.execute(PostgreSQL_select_Query, (password, email))
+        answer = cursor.fetchall()
+        print(answer)
+
+        
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
 
 
 def connect(resturant_id, rating):
@@ -110,3 +179,5 @@ def connect(resturant_id, rating):
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host = '0.0.0.0', port=port, debug=True)
+
+   
