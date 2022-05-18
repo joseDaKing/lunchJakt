@@ -4,13 +4,15 @@
 
 
 import re
-from flask import Flask, jsonify, redirect, render_template, url_for, request
+from flask import Flask, jsonify, redirect, render_template, url_for, request, flash, session, redirect
 import psycopg2
 import os, sys
 
 from data.find import find
 
 from forms import SearchForm #För sökning
+
+from flask_login import UserMixin, login_user
 
 
 #from data.Restaurant import Restaurant
@@ -25,28 +27,17 @@ app = Flask(__name__)
 #pip install pipreqs
 #pip install gunicorn
 
-"""
+#Hemlig nyckel för användar session.
 SECRET_KEY = os.urandom(32)
-
-app.config['SECRET_KEY'] = SECRET_KEY
-"""
+app.secret_key = SECRET_KEY
 
 
-#Startsidan
+#Startsida
+#Author Philip Holmqvist 
 @app.route("/")
 def home_page():
-    return render_template('index.html')
-
-#Vid inloggning blir man omdirigerad till denna sidan. Värden från inloggning finns i variablerna.
-@app.route("/", methods=['POST'])
-def home_page_login():
-    email = request.form['email']
-    password = request.form=['password']
-    print(email)
-    print(password)
-    loginUser(email=email, password=password)
-
-    return render_template('index.html')
+    fname = session.get('fname')
+    return render_template('index.html', fname=fname)
 
 
 #Användar sidan där man kan se profil.
@@ -67,23 +58,89 @@ def resturant_page(name):
 def suggestion_page():
     input = request.args.get('searched')
     result = find(search_text = input)
-    return render_template('suggestion.html', resturants = result)
+    fname = session.get('fname')
+    return render_template('suggestion.html', resturants = result, fname=fname)
 
-#author Philip Aronsson & Philip
+#sida för att regristrera ett nytt konto.
 @app.route("/register", methods=['GET','POST'])
 def register_page():
-    if request.method == 'POST':
-        print('post')
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form and 'fname' in request.form and 'lname' in request.form:
         email = request.form['email']
         password = request.form['password']
         fname = request.form['fname']
         lname = request.form['lname']
-        registerNewUserToDatabase(email, password, fname, lname)
 
-        return render_template('register.html')
-    else:
-        print('no post')
-        return render_template('register.html')
+        account = loginUser(email)
+
+        if account:
+            flash('Det finns redan ett konto med denna email adressen!')
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            flash('Ange en giltig email adress!')
+        elif not re.match(r'[A-Za-z]+', fname):
+            flash('Namn får inte innehålla siffror!')
+        elif not re.match(r'[A-Za-z]+', lname):
+            flash('Namn får inte innehålla siffror!')     
+        elif not email or not password or not fname or not lname:
+            flash('Fyll i alla fälten!')
+        else:
+            #Konto finns inte och datan är godkänd. Vi lägger in kontot i databasen.              
+            registerNewUserToDatabase(email, password, fname, lname)
+            flash('Konto är registrerat!')
+        
+        return redirect(url_for('login_page'))
+
+    elif request.method == 'POST': #Ingen data har skickats med i anropet.
+        flash('Fyll i fälten!')    
+
+    
+    fname = session.get('fname')
+    return render_template('register.html', fname=fname)
+
+
+#sidan för att logga in på sitt konto.
+@app.route("/login", methods=['GET', 'POST']) 
+def login_page():
+    if 'loggedin' in session:
+        #Ska inte gå att komma åt egentligen, men utifall att. Omdirigera till startsida.
+        flash('Du är redan inloggad')
+        return render_template('index.html', fname=session['fname'])
+
+    #Kolla så att email och lösenord har skickats med i POST begäran. (Användare har tryckt logga in)
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        #Sparar ner värdena till variabler för enkel åtkomst.
+        email = request.form['email']
+        password = request.form['password']
+
+        account = loginUser(email=email)
+
+        if account:
+            #Kontot existerar
+            if password == account[1]:
+                flash('Login lyckades!')
+                #Skapa sessions data som vi kan komma åt i andra routes.
+                session['loggedin'] = True
+                session['id'] = account[0]
+                session['fname'] = account[2]
+                #Redirecta till startsida.
+                return redirect(url_for('home_page'))
+
+            else:
+                flash('Fel lösenord!')
+        else:
+            #Kontot finns inte eller så är anv/lösenord fel
+            flash('Finns inget konto kopplat till email adressen!')
+    
+    fname = session.get('fname')
+    return render_template('login.html', fname=fname)
+
+@app.route("/logout")
+def logout():
+    #Ta bort session data, detta kommer logga ut användaren.
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('fname', None)
+    #Omdirigera till startsidan
+    return redirect(url_for('home_page'))                      
     
 
 
@@ -114,8 +171,9 @@ def registerNewUserToDatabase(email, password, fname, lname):
             conn.close()
             print('Database connection closed.')
 
-def loginUser(email, password):
+def loginUser(email):
     conn = None
+    account = None
     try:
 
         print("Connecting to database...")
@@ -125,16 +183,10 @@ def loginUser(email, password):
         user="am1549",
         password="xibh1ocz")
         print("Connection Success!")
-
         cursor = conn.cursor()
-    
-
-        PostgreSQL_select_Query = "SELECT EXISTS (SELECT email FROM user WHERE password = %s AND email = %s)"
-        cursor.execute(PostgreSQL_select_Query, (password, email))
-        answer = cursor.fetchall()
-        print(answer)
-
-        
+        statement = f"SELECT * from users WHERE mail='{email}';"
+        cursor.execute(statement)
+        account = cursor.fetchone()
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -142,6 +194,7 @@ def loginUser(email, password):
         if conn is not None:
             conn.close()
             print('Database connection closed.')
+            return account
 
 
 def connect(resturant_id, rating):
