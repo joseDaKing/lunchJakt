@@ -159,7 +159,7 @@ def registerNewUserToDatabase(email, password, fname, lname):
         cursor = conn.cursor()
     
 
-        PostgreSQL_insert = "INSERT INTO users (email, password, fname, lname) VALUES (%s, %s, %s, %s)"
+        PostgreSQL_insert = "INSERT INTO users (mail, p_word, f_name, l_name) VALUES (%s, %s, %s, %s)"
         insert_to = (email, password, fname, lname)
         cursor.execute(PostgreSQL_insert, insert_to)
         conn.commit()
