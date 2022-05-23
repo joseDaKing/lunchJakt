@@ -1,0 +1,31 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+<style>
+.container {
+	width: 95% !important;
+	margin: auto;
+	margin-top: 5%;
+	display: block;	
+	display: flex;
+	flex-direction: column;
+}
+
+body {
+	background-image: url('/static/hex.jpg');
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+}
+</style>
+
+<body>
+    <div class="container">
+        <h1>Profil</h1>
+        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="80" height="80" class="rounded-circle">
+    </div>
+</body>
+
+
+{% endblock %}
