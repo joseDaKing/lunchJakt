@@ -8,7 +8,6 @@
 import psycopg2
 from psycopg2 import Error
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin
 from datetime import datetime
 
@@ -28,7 +27,7 @@ login_manager.init_app(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'pgserver.mau.se'
 
-db = SQLAlchemy(app)
+
 
 def register():
 
@@ -97,5 +96,5 @@ def login():
             connection.close()
 
 
-login()
+register()
 

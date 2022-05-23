@@ -7,9 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS. Importera inget annat då det blir konflikter --> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <title>Lunchjakt</title>
   </head>
   <style>
@@ -22,65 +21,96 @@ body {
   	background-size: cover;
 }
 
-.collapse label{
-  color: white;
+nav .navbar-nav li a{
+  color: white !important;
+  }
+
+  button {
+  background-image: url(images/cancel.png);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  /* put the height and width of your image here */
+  height: 50px;
+  width: 80px;
+  border: none;
 }
 
-.pos-f-t label{
-  color: white;
+button span {
+  display: none;
 }
+
 
 
 
   </style>
   <body>
 
-    <!-- Navbar -->
-    <div class="pos-f-t">
-      <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
+  {% if fname is not none %}
+  <!-- Om användaren är inloggad ska en navbar visas -->
 
-          <form method="POST">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Skriv din mejl här">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Lösenord</label>
-              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Skriv in ditt lösenord">
-            </div>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Håll mig inloggad</label>
-            </div>
-            <button type="submit" class="btn btn-primary" action="{{ url_for('home_page_login') }}">Logga in</button>
-            <a href="/register" class="btn btn-primary" role="button" data-bs-toggle="button">Registrera dig</a>
-          </form>
-        </div>
+  <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <a class="navbar-brand" href="{{url_for('home_page')}}">
+      <img src="/static/logotype_lunchjakt.png" width="50" height="50" alt="logo">
+    </a>
+    <div class="dropdown ml-auto">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" >
+        <a class="dropdown-item" href="#">Profil</a>
+        <a class="dropdown-item" href="#">Recensioner</a>
+        <a class="dropdown-item" href="#">Sparade Restauranger</a>
+        <a class="dropdown-item" href="{{url_for('logout')}}">Logga ut</a>
       </div>
-      <nav class="navbar sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url_for('home_page') }}">
-          <img src="/static/logotype_lunchjakt.png" width="50" height="50" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
     </div>
-    {% block content %}
+
+  </nav>
+
+  
+  
+    
+  {% else %}
+    <!-- Om användaren inte är inloggad ska en annan navbar visas -->
+    <!-- Klar -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+      <a class="navbar-brand" href="{{url_for('home_page')}}">
+        <img src="/static/logotype_lunchjakt.png" width="50" height="50" alt="">
+      </a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{url_for('register_page')}}"><span class="fa fa-user"></span> Regristrera</a></li>
+        <li><a href="{{url_for('login_page')}}"><span class="fa fa-solid fa-arrow-right-to-bracket"></span> Logga in</a></li>
+        
+      </ul>
+    </nav>
+
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">x</span>
+      </button>
+    </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+
+  {% block content %}
+  
 
 
     {% endblock %}
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Detta är alla bootstrap imports som behövs! importera inte fler då det blir konfilkter. -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://use.fontawesome.com/30c21ac8e0.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/96e28bdbf5.js" crossorigin="anonymous"></script>
+
   </body>
 </html>
 

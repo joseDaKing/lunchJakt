@@ -7,14 +7,21 @@
         color: black;
     }
 
-    button {
-        margin-top: 10%;
-    }
+    .container {
+	width: 95% !important;
+	margin: auto;
+	margin-top: 5%;
+	display: block;	
+	display: flex;
+	flex-direction: column;
+}
+
+
 </style>
 
 <body>
     <div class="container">
-        <h1>Skapa konto</h1>
+        <h1>Logga in:</h1>
         <form method="POST">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
@@ -24,15 +31,7 @@
               <label for="exampleInputPassword1">Lösenord</label>
               <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Skriv in ditt lösenord">
             </div>
-            <div class="form-group">
-                <label for="firstname">Förnamn</label>
-                <input type="text" name="fname" class="form-control" id="firstname" placeholder="Skriv in ditt förnamn"> 
-            </div>
-            <div class="form-group">
-                <label for="lastname">Efternamn</label>
-                <input type="text" name="lname" class="form-control" id="lastname" placeholder="Skriv in ditt efternamn"> 
-            </div>
-            <button class="btn btn-primary btn-block" type="submit">Registrera dig</button>
+            <button class="btn btn-primary btn-block" type="submit">Logga in</button>
           </form>
 
     </div>
