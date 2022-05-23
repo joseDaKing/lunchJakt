@@ -1,4 +1,5 @@
 from array import array
+from functools import cmp_to_key
 
 from .get_restaurants import get_restaurants
 
@@ -268,12 +269,4 @@ def find(
         
         restaurants = group_array(restaurants, page_size)[page - 1]
 
-<<<<<<< HEAD
     return restaurants
-
-
-
-
-=======
-    return restaurants
->>>>>>> yousef
