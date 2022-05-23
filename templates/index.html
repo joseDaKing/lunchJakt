@@ -4,11 +4,17 @@
 {% block content %}
 <style>
 
-h1 {text-align: center;}
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-left: 36%;
+  color:rgb(5, 5, 52);
+  border-bottom: solid rgb(5, 5, 52) 3px;
+}
 
 .container{
   margin-left: 1%;
-	margin-top: 30%;
+	margin-top: 15%;
 	width: 99%;
 	height: 1000px;
   align-items: center;
@@ -27,7 +33,7 @@ h1 {text-align: center;}
   color: black;
   border-radius: 30px;
   border: 1px solid black;
-  
+  margin-left: 21%;
 }
 
 .search-bar input{
@@ -57,18 +63,36 @@ h1 {text-align: center;}
 }
 
 body {
-	background-image: url('/static/foodie.jpg');
+	background-image: url('/static/bright.jpg');
 	background-repeat: no-repeat;
   	background-attachment: fixed;
   	background-size: cover;
 }
 
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: url('/static/foodie.jpg');
+  }
+  h1 {
+    margin: auto;
+    margin-bottom: 20px;
+    color:rgb(5, 5, 52);
+    border-bottom: solid rgb(5, 5, 52) 3px;
+  }
+  .search-bar{
+    margin: auto;
+  }
+
+  .container {
+    margin-top: 40%;
+  }
+}
 
   </style>
   <body>
 
     <div class="container">
-      <h1>Lunchjakt</h1>
+      <h1>LUNCHJAKT</h1>
       <form action="{{ url_for('suggestion_page') }}" method="GET" class="search-bar">
         <input type="text" placeholder="sök något" name="searched">
         <button type="submit"><img src="/static/search_icon.png"> </button>
