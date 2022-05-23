@@ -22,10 +22,38 @@ body {
 }
 
 nav .navbar-nav li a{
-  color: white !important;
+  margin-right: 5px;
+  margin-left: 10px;
   }
 
-  button {
+  nav .navbar-nav li:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+  }
+
+#register {
+  text-decoration: none;
+  color: #498afb;
+  border: solid #498afb 1px;
+  padding: 5px;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+#login {
+  text-decoration: none;
+  color: #ff3860;
+  border: solid #ff3860 1px;
+  padding: 5px;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+button {
   background-image: url(images/cancel.png);
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -39,7 +67,131 @@ button span {
   display: none;
 }
 
+#nav1 {
+  position: sticky;
+}
+#nav2 {
+  position: sticky;
+}
 
+#hamburger-icon {
+    margin: auto 0;
+    display: none;
+    cursor: pointer;
+}
+
+#hamburger-icon div {
+    width: 35px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.open .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+    transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.open .bar2 {
+    opacity: 0;
+}
+
+.open .bar3 {
+    -webkit-transform: rotate(45deg) translate(-6px, -8px);
+    transform: rotate(45deg) translate(-6px, -8px);
+}
+
+.open .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    height: calc(100vh - 50px);
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  nav .navbar-nav {
+                display: none;
+            }
+  #hamburger-icon {
+                display: block;
+  }
+  ul  {
+      background-color: #22222294;
+  }
+  ul > li {
+    list-style: none;
+    margin-top: 15px;
+  }
+  ul > li > a {
+    color: white
+  }
+  #login,
+  #signup {
+    margin-top: 15px;
+  }
+  #lognin {
+    background-color: #498afb;
+    color: #498afb;
+    border: solid #498afb 1px;
+    padding: 5px;
+    padding: 11px;
+    padding-top: 10px;
+    padding-bottom: 18px;
+    margin-top: 35px;
+    border-radius: 5px;
+    font-size: 25px;
+    margin-right: 8%;
+    width: 170px;
+    text-align: center;
+  }
+  #signup {
+    background-color: #ff3860;
+    color: #ff3860;
+    border: solid #ff3860 1px;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 18px;
+    margin-top: 35px;
+    border-radius: 5px;
+    font-size: 25px;
+    margin-right: 8%;
+    width: 170px;
+    text-align: center;
+  }
+  .mobile-menu > li {
+    text-decoration: none;
+  }
+  .dropdown {
+    display: none;
+  }
+  #profile,
+  #rating,
+  #saved {
+    background-color: #498afb;
+    color: #498afb;
+    border: solid #498afb 1px;
+    padding: 5px;
+    padding: 11px;
+    padding-top: 10px;
+    padding-bottom: 18px;
+    margin-top: 35px;
+    border-radius: 5px;
+    font-size: 25px;
+    margin-right: 8%;
+    width: 170px;
+    text-align: center;
+  }
+}
 
 
   </style>
@@ -48,7 +200,7 @@ button span {
   {% if fname is not none %}
   <!-- Om användaren är inloggad ska en navbar visas -->
 
-  <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+  <nav id="nav2" class="navbar navbar-dark bg-dark navbar-expand-sm">
     <a class="navbar-brand" href="{{url_for('home_page')}}">
       <img src="/static/logotype_lunchjakt.png" width="50" height="50" alt="logo">
     </a>
@@ -63,6 +215,18 @@ button span {
         <a class="dropdown-item" href="{{url_for('logout')}}">Logga ut</a>
       </div>
     </div>
+    <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+      <ul class="mobile-menu">
+          <li id="profile"><a href="{{url_for('home_page')}}">Profil</a></li>
+          <li id="rating"><a href="{{url_for('home_page')}}">Recensioner</a></li>
+          <li id="saved"><a href="{{url_for('home_page')}}">Sparade Restauranger</a></li>
+          <li id="signup"><a href="{{url_for('logout')}}">Logga ut</a></li>
+      </ul>
+  </div>
+    
 
   </nav>
 
@@ -77,10 +241,19 @@ button span {
         <img src="/static/logotype_lunchjakt.png" width="50" height="50" alt="">
       </a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{url_for('register_page')}}"><span class="fa fa-user"></span> Regristrera</a></li>
-        <li><a href="{{url_for('login_page')}}"><span class="fa fa-solid fa-arrow-right-to-bracket"></span> Logga in</a></li>
+        <li><a id="register" href="{{url_for('register_page')}}"><span class="fa fa-user"></span> Regristrera</a></li>
+        <li><a id="login" href="{{url_for('login_page')}}"><span class="fa fa-solid fa-arrow-right-to-bracket"></span> Logga in</a></li>
         
       </ul>
+      <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+        <ul class="mobile-menu">
+            <li id="lognin"><a href="{{url_for('register_page')}}">Regristrera</a></li>
+            <li id="signup"><a href="{{url_for('login_page')}}">Logga in</a></li>
+        </ul>
+    </div>
     </nav>
 
   {% endif %}
@@ -105,6 +278,11 @@ button span {
 
     {% endblock %}
     <!-- Detta är alla bootstrap imports som behövs! importera inte fler då det blir konfilkter. -->
+    <script>
+      function toggleMobileMenu(menu) {
+          menu.classList.toggle('open')
+      }
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
