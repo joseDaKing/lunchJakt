@@ -6,11 +6,15 @@ from .Location import Location
 
 from .Restaurant import Restaurant;
 
-from .get_data_source import get_data_source;
+from .get_data_sources import get_data_sources;
 
-
-
-data_source = get_data_source()
+data_source = get_data_sources([
+    "data/sources/restaurants_1.json",
+    "data/sources/restaurants_2.json",
+    "data/sources/restaurants_3.json",
+    "data/sources/restaurants_4.json",
+    "data/sources/restaurants_5.json",
+])
 
 def get_restaurant_position(restaurantData) -> Position:
     
@@ -87,13 +91,23 @@ def get_restaurants() -> list[Restaurant]:
         
         id = restaurantData.get("location_id")
 
+        price_level = restaurantData.get("price_level")
+
+        if price_level != None and type(price_level) == str and not price_level:
+            price_level = None
+
         price = restaurantData.get("price")
 
         if price != None:
-            
-            price = price.split("-")[0]
+    
+            price = (
+                price
+                .replace(" ", "")
+                .replace("\xa0", "")
+                .replace("kr", "")
+            )
 
-            price = price[: len(price) - 3]
+            price = price.split("-")[0]
 
         restaurant = Restaurant(
             id = id,
@@ -102,6 +116,7 @@ def get_restaurants() -> list[Restaurant]:
             rank = rank,
             location = location,
             image_url = image_url,
+            price_level = price_level
         )
 
         restaurants.append(restaurant)

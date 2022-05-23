@@ -16,6 +16,7 @@ class Restaurant:
         image_url: str | None = None,
         rank: Rank | None = None,
         location: Location | None = None,
+        price_level: str | None = None
     ):
         if id != None and type(id) != str:
                 
@@ -41,8 +42,14 @@ class Restaurant:
 
             raise Exception("location must be a Location Object")
 
+        if price_level != None and type(price_level) != str:
+            
+            raise Exception("price_level must be a string")
+
         self.__id = id
-        
+
+        self.__price_level = price_level
+
         self.__price = price
 
         self.__name = name
@@ -53,14 +60,20 @@ class Restaurant:
 
         self.__location = location
 
-        self.__comparator_property = "rank"
-
 
 
     @property
     def id(self) -> str:
 
         return self.__id
+
+
+
+    @property
+    def price_level(self) -> str | None:
+
+        return self.__price_level
+
 
 
     @property
