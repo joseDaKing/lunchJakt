@@ -141,7 +141,12 @@ def logout():
     session.pop('fname', None)
     #Omdirigera till startsidan
     return redirect(url_for('home_page'))                      
-    
+
+#Profilsidan.
+@app.route("/profile", methods=['GET']) 
+def profile_page():
+    fname = session.get('fname')
+    return render_template('profile.html', fname=fname)
 
 
 def registerNewUserToDatabase(email, password, fname, lname):

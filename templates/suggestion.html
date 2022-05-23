@@ -123,7 +123,8 @@ a {
   <body>
 
 	<div class="container">
-		
+
+		{% if resturants %}
 		
 		<h5> Resturanger - {{ resturants[0].location.city }}</h5>
 		<h6>{{ resturants|length }} resultat matchar din sökning</h6>
@@ -163,6 +164,12 @@ a {
 				</div>
 			</div>
 		</div>
+		
+		{% else %}
+
+		<h1>Inga resultat matchar din sökning</h1>
+
+		{% endif %}
 	</div>
 
 
