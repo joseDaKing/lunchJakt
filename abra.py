@@ -8,4 +8,4 @@ results = find(
 )
 
 for r in results:
-    print(r.price)
+    print(r.price) 
