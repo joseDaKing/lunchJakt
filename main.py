@@ -12,7 +12,6 @@ from data.find import find
 
 from forms import SearchForm #För sökning
 
-from flask_login import UserMixin, login_user
 
 
 #from data.Restaurant import Restaurant
