@@ -7,3 +7,6 @@ http://lunchjaktv2.herokuapp.com/
 för att se den senaste stabila versionen.
 
 OBS. Hemsidan är primärt designad för smartphones och kan därför se lite konstig ut på desktop.
+
+Länk till repository:
+https://github.com/joseDaKing/lunchJakt 
